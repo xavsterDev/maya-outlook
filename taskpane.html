@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Energía del día</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&display=swap" rel="stylesheet">
+<script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+<style>
+  :root {
+    --paper: #EDE6D6;          /* amate: bark paper */
+    --ink: #2A2320;
+    --ink-soft: #6B615A;
+    --rule: #CFC4AE;
+    --dir: #B7362E;            /* set by JS: E red, W black, N white(chalk), S yellow */
+    --dir-ink: #FFFFFF;
+    --band: #B7362E;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink);
+    font: 15px/1.5 -apple-system, "Segoe UI", system-ui, sans-serif; }
+  .band { height: 10px; background: var(--band); border-bottom: 1px solid var(--rule); }
+  .dirchip { border: 1px solid var(--rule); }
+  main { padding: 18px 20px 24px; max-width: 420px; }
+  .when { color: var(--ink-soft); font-size: 13px; margin: 0 0 14px; display: flex; gap: 10px; align-items: baseline; }
+  .when button { background: none; border: 1px solid var(--rule); border-radius: 999px; color: var(--ink);
+    font: inherit; font-size: 12px; padding: 1px 10px; cursor: pointer; }
+  .when button:focus-visible, input:focus-visible { outline: 2px solid var(--dir); outline-offset: 2px; }
+
+  .numeral { display: block; margin-bottom: 6px; }
+  h1 { font-family: "Fraunces", Georgia, serif; font-weight: 300; font-size: 52px; line-height: 1;
+    letter-spacing: -0.02em; margin: 0 0 6px; }
+  h1 span { display: block; }
+  .mam { font-family: "Fraunces", Georgia, serif; font-weight: 500; font-size: 22px; line-height: 1.2;
+    margin: 0 0 18px; display: flex; align-items: center; gap: 10px; }
+  .mam small { font-family: inherit; font-weight: 300; color: var(--ink-soft); font-size: 15px; }
+
+  .dirchip { display: inline-block; background: var(--band); color: var(--dir-ink); border-radius: 3px;
+    padding: 2px 8px; font-size: 13px; margin-right: 6px; }
+  .energy { margin: 0 0 16px; font-size: 16px; line-height: 1.55; max-width: 38ch; }
+  .clave { border-left: 3px solid var(--dir); padding-left: 12px; margin: 0 0 18px; }
+  .clave p { margin: 0; }
+  .clave .k { font-family: "Fraunces", Georgia, serif; font-size: 18px; }
+  .clave .d { color: var(--ink-soft); font-size: 14px; }
+
+  dl { margin: 0; border-top: 1px solid var(--rule); font-size: 13px; }
+  .row { display: grid; grid-template-columns: 96px 1fr; padding: 7px 0; border-bottom: 1px solid var(--rule); }
+  dt { color: var(--ink-soft); margin: 0; } dd { margin: 0; }
+
+  .pick { margin-top: 20px; display: flex; gap: 8px; align-items: center; }
+  input[type=date] { font: inherit; font-size: 13px; padding: 5px 8px; border: 1px solid var(--rule);
+    border-radius: 4px; background: #FFFDF8; color: var(--ink); }
+  .src { margin-top: 16px; font-size: 11px; color: var(--ink-soft); }
+  .draft { color: #8A4B00; }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper: #1E1A17; --ink: #EDE6D6; --ink-soft: #A79C90; --rule: #3B342E; }
+    input[type=date] { background: #2A2420; }
+  }
+</style>
+</head>
+<body>
+<div class="band"></div>
+<main>
+  <p class="when"><span id="when"></span><button id="today" type="button">Hoy</button></p>
+  <svg class="numeral" id="num-day" width="120" height="44" viewBox="0 0 120 44" aria-hidden="true"></svg>
+  <h1 id="headline"><span id="day"></span></h1>
+  <p class="mam"><svg id="num-mam" width="80" height="22" viewBox="0 0 80 22" aria-hidden="true"></svg><span id="mam"></span><small>Cargador del año</small></p>
+
+  <p><span class="dirchip" id="dir"></span><span id="elem"></span></p>
+  <p class="energy" id="energy"></p>
+  <div class="clave"><p class="k" id="clave"></p><p class="d" id="desarrollo"></p></div>
+
+  <dl>
+    <div class="row"><dt>Yucateco</dt><dd id="yuc"></dd></div>
+    <div class="row"><dt>Mexica</dt><dd id="mex"></dd></div>
+    <div class="row"><dt>Ab'</dt><dd id="haab"></dd></div>
+    <div class="row"><dt>Cuenta larga</dt><dd id="lc"></dd></div>
+    <div class="row"><dt>Año inició</dt><dd id="ystart"></dd></div>
+  </dl>
+
+  <div class="pick"><label for="date" style="font-size:13px">Otra fecha</label><input type="date" id="date"></div>
+  <p class="src" id="src"></p>
+</main>
+<script src="maya-calendar.js"></script>
+<script src="nawales.js"></script>
+<script src="taskpane.js"></script>
+</body>
+</html>
